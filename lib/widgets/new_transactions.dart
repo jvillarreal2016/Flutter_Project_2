@@ -9,7 +9,7 @@ class NewTransaction extends StatefulWidget {
   State<NewTransaction> createState() => _NewTransactionState();
 }
 
-class _NewTransactionState extends State<NewTransaction> { 
+class _NewTransactionState extends State<NewTransaction> {
   final titleController = TextEditingController();
   final amountController = TextEditingController();
 
@@ -46,6 +46,19 @@ class _NewTransactionState extends State<NewTransaction> {
               //   titleInput = val;
               // },
             ),
+            Container(
+              height: 70,
+              child: Row(
+                children: <Widget>[
+                  Text('No Date Chosen!'),
+                  FlatButton(
+                    textColor: Theme.of(context).primaryColor,
+                    child: Text('Choose Date', style: TextStyle(fontWeight: FontWeight.bold),),
+                    onPressed: () {},
+                  ),
+                ],
+              ),
+            ),
             TextField(
               decoration: InputDecoration(labelText: 'Amount'),
               controller: amountController,
@@ -53,9 +66,10 @@ class _NewTransactionState extends State<NewTransaction> {
               onSubmitted: (_) => submitData,
               // onChanged: (val) => amountInput = val,
             ),
-            FlatButton(
+            RaisedButton(
               child: Text('Add Transaction'),
-              textColor: Colors.purple,
+              color: Theme.of(context).primaryColor,
+              textColor: Theme.of(context).textTheme.button?.color,
               onPressed: submitData,
             )
           ],
