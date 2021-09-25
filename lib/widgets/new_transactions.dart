@@ -16,16 +16,20 @@ class _NewTransactionState extends State<NewTransaction> {
   DateTime _selectedDate = DateTime.now();
 
   void _submitData() {
+    if (_amountController.text.isEmpty) {
+      return;
+    }
     final enteredTitle = _titleController.text;
     final entertedAmount = double.parse(_amountController.text);
 
-    if (enteredTitle.isEmpty || entertedAmount <= 0) {
+    if (enteredTitle.isEmpty || entertedAmount <= 0 || _selectedDate == null) {
       return;
     }
 
     widget.addTx(
       enteredTitle,
       entertedAmount,
+      _selectedDate,
     );
 
     Navigator.of(context).pop();
