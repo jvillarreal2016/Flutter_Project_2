@@ -77,6 +77,12 @@ class _MyHomePageState extends State<MyHomePage> {
 
   bool _showChart = false;
 
+  @override
+  void didChangeAppLifeCycle(AppLifecycleState state) {
+    print(state);
+  }
+
+
   List<Transaction> get _recentTransactions {
     return _userTransaction.where((tx) {
       return tx.date.isAfter(
@@ -119,33 +125,38 @@ class _MyHomePageState extends State<MyHomePage> {
     });
   }
 
-  List<Widget> _buildLandscapeContent(    MediaQueryData mediaQuery,
+  List<Widget> _buildLandscapeContent(
+    MediaQueryData mediaQuery,
     AppBar appBar,
-    Widget txListWidget,) {
-    return [Row(
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: <Widget>[
-        Text(
-          'Show Cart',
-          style: Theme.of(context).textTheme.headline6,
-        ),
-        Switch(
-          value: _showChart,
-          onChanged: (val) {
-            setState(() {
-              _showChart = val;
-            });
-          },
-        ),
-      ],
-    ),               _showChart
-                  ? Container(
-                      height: (mediaQuery.size.height -
-                              appBar.preferredSize.height -
-                              mediaQuery.padding.top) *
-                          0.7,
-                      child: Chart(_recentTransactions))
-                  : txListWidget];
+    Widget txListWidget,
+  ) {
+    return [
+      Row(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: <Widget>[
+          Text(
+            'Show Cart',
+            style: Theme.of(context).textTheme.headline6,
+          ),
+          Switch(
+            value: _showChart,
+            onChanged: (val) {
+              setState(() {
+                _showChart = val;
+              });
+            },
+          ),
+        ],
+      ),
+      _showChart
+          ? Container(
+              height: (mediaQuery.size.height -
+                      appBar.preferredSize.height -
+                      mediaQuery.padding.top) *
+                  0.7,
+              child: Chart(_recentTransactions))
+          : txListWidget
+    ];
   }
 
   List<Widget> _buildPortraitContent(
@@ -208,7 +219,12 @@ class _MyHomePageState extends State<MyHomePage> {
           // mainAxisAlignment: MainAxisAlignment.spaceAround,
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: <Widget>[
-            if (isLandscape) ..._buildLandscapeContent(mediaQuery, appBar, txListWidget,),
+            if (isLandscape)
+              ..._buildLandscapeContent(
+                mediaQuery,
+                appBar,
+                txListWidget,
+              ),
             if (!isLandscape)
               ..._buildPortraitContent(
                 mediaQuery,
