@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_project2/widgets/chart.dart';
 import './widgets/new_transactions.dart';
-import './widgets/transactionList.dart';
+import 'widgets/transaction_list.dart';
 import 'models/transaction.dart';
 import 'dart:io';
 
